@@ -2,7 +2,7 @@
 ClassForge Application Factory
 """
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
@@ -38,6 +38,14 @@ def create_app(config_name=None):
     app.register_blueprint(clustering_bp, url_prefix='/api/clustering')
     
 
+    # Add health check endpoint for Railway
+    @app.route('/health')
+    def health_check():
+        return jsonify({
+            'status': 'healthy',
+            'message': 'ClassForge is running',
+            'timestamp': db.func.now()
+        }), 200
     
     # Create database tables (only if they don't exist)
     with app.app_context():

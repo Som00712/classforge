@@ -761,7 +761,7 @@ HTML_TEMPLATE = """
     </div>
 
          <script>
-         const API_BASE = 'http://localhost:5000/api';
+         const API_BASE = window.location.origin + '/api';
          let authToken = localStorage.getItem('classforge_token');
          let currentUser = JSON.parse(localStorage.getItem('classforge_user') || 'null');
 
@@ -1136,7 +1136,8 @@ def index():
     return render_template_string(HTML_TEMPLATE)
 
 if __name__ == '__main__':
-    print("🚀 Starting ClassForge on http://localhost:5000")
+    port = int(os.environ.get('PORT', 5000))
+    print(f"🚀 Starting ClassForge on http://localhost:{port}")
     print("📚 AI-Powered Educational Assistant")
     print("=" * 50)
-    app.run(host='0.0.0.0', port=5000, debug=True) 
+    app.run(host='0.0.0.0', port=port, debug=os.environ.get('FLASK_ENV') != 'production') 
