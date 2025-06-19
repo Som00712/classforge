@@ -4,6 +4,10 @@
 [![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-API-orange.svg)](https://openai.com/)
 
+## 🚀 Quick Deploy
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/classforge)
+
 ## 🎯 Overview
 
 ClassForge is an intelligent educational assistant that combines AI chatbots with advanced document clustering to provide personalized learning experiences. The system helps students navigate educational content more effectively by understanding their queries and organizing information intelligently.
@@ -64,4 +68,4 @@ GET  /api/chat/history     # Retrieve chat history
 POST /api/clustering/analyze # Content clustering
 ```
 
-## 📁 Project Structure
+## �� Project Structure
