@@ -14,7 +14,7 @@ from app.models.document import Document
 clustering_bp = Blueprint('clustering', __name__)
 
 @clustering_bp.route('/analyze', methods=['POST'])
-@jwt_required()
+@jwt_required(optional=True)
 def analyze_content():
     """Analyze and cluster documents"""
     try:

@@ -17,21 +17,39 @@ def register():
         data = request.get_json()
         
         # Validate required fields
-        if not data or not data.get('username') or not data.get('email') or not data.get('password'):
+        if not data:
+            return jsonify({'error': 'Request body is required'}), 400
+            
+        username = data.get('username', '').strip()
+        email = data.get('email', '').strip().lower()
+        password = data.get('password', '')
+        
+        if not username or not email or not password:
             return jsonify({'error': 'Username, email, and password are required'}), 400
         
-        # Check if user already exists
-        if User.query.filter_by(username=data['username']).first():
-            return jsonify({'error': 'Username already exists'}), 409
+        # Enhanced validation
+        if len(username) < 3:
+            return jsonify({'error': 'Username must be at least 3 characters long'}), 400
+            
+        if len(password) < 6:
+            return jsonify({'error': 'Password must be at least 6 characters long'}), 400
+            
+        # Email format validation (basic)
+        if '@' not in email or '.' not in email:
+            return jsonify({'error': 'Please enter a valid email address'}), 400
         
-        if User.query.filter_by(email=data['email']).first():
-            return jsonify({'error': 'Email already exists'}), 409
+        # Check if user already exists
+        if User.query.filter_by(username=username).first():
+            return jsonify({'error': 'Username already exists. Please choose another.'}), 409
+        
+        if User.query.filter_by(email=email).first():
+            return jsonify({'error': 'Email already registered. Please sign in instead.'}), 409
         
         # Create new user
         user = User(
-            username=data['username'],
-            email=data['email'],
-            password=data['password']
+            username=username,
+            email=email,
+            password=password
         )
         
         db.session.add(user)
@@ -57,14 +75,20 @@ def login():
         data = request.get_json()
         
         # Validate required fields
-        if not data or not data.get('username') or not data.get('password'):
-            return jsonify({'error': 'Username and password are required'}), 400
+        if not data:
+            return jsonify({'error': 'Request body is required'}), 400
+            
+        email = data.get('email', '').strip().lower()
+        password = data.get('password', '')
         
-        # Find user
-        user = User.query.filter_by(username=data['username']).first()
+        if not email or not password:
+            return jsonify({'error': 'Email and password are required'}), 400
         
-        if not user or not user.check_password(data['password']):
-            return jsonify({'error': 'Invalid username or password'}), 401
+        # Find user by email
+        user = User.query.filter_by(email=email).first()
+        
+        if not user or not user.check_password(password):
+            return jsonify({'error': 'Invalid email or password'}), 401
         
         if not user.is_active:
             return jsonify({'error': 'Account is deactivated'}), 401

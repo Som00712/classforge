@@ -37,12 +37,30 @@ def create_app(config_name=None):
     app.register_blueprint(chat_bp, url_prefix='/api/chat')
     app.register_blueprint(clustering_bp, url_prefix='/api/clustering')
     
+
+    
     # Create database tables (only if they don't exist)
     with app.app_context():
         try:
             db.create_all()
+            print("✅ Database initialized successfully")
         except Exception as e:
             # Tables may already exist, which is fine
+            print(f"⚠️ Database initialization note: {str(e)}")
             pass
+    
+    # Add error handlers
+    @app.errorhandler(404)
+    def not_found_error(error):
+        return jsonify({'error': 'Resource not found'}), 404
+
+    @app.errorhandler(500)
+    def internal_error(error):
+        db.session.rollback()
+        return jsonify({'error': 'Internal server error'}), 500
+
+    @app.errorhandler(400)
+    def bad_request_error(error):
+        return jsonify({'error': 'Bad request'}), 400
     
     return app 

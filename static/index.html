@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassForge - AI-Powered Educational Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>ClassForge</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <button class="nav-btn" id="login-btn">Login</button>
+                <button class="nav-btn primary" id="register-btn">Sign Up</button>
+                <button class="nav-btn" id="logout-btn" style="display: none;">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Your AI-Powered <span class="gradient-text">Learning</span> Companion
+                </h1>
+                <p class="hero-subtitle">
+                    Experience personalized tutoring, intelligent document analysis, and 24/7 learning support with ClassForge's advanced AI technology.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn primary large" id="get-started-btn">
+                        <i class="fas fa-rocket"></i>
+                        Get Started Free
+                    </button>
+                    <button class="btn secondary large" id="demo-btn">
+                        <i class="fas fa-play"></i>
+                        Watch Demo
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI Tutor</h3>
+                    <p>24/7 personalized learning</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main App Section -->
+    <section class="app-section" id="app-section" style="display: none;">
+        <div class="app-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="user-profile">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h3 id="user-name">Welcome!</h3>
+                        <p id="user-email">student@classforge.ai</p>
+                    </div>
+                </div>
+                
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item active" data-tab="chat">
+                        <i class="fas fa-comments"></i>
+                        <span>AI Tutor Chat</span>
+                    </a>
+                    <a href="#" class="nav-item" data-tab="documents">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Document Analysis</span>
+                    </a>
+                    <a href="#" class="nav-item" data-tab="history">
+                        <i class="fas fa-history"></i>
+                        <span>Chat History</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Chat Tab -->
+                <div class="tab-content active" id="chat-tab">
+                    <div class="chat-header">
+                        <h2><i class="fas fa-robot"></i> AI Tutor</h2>
+                        <p>Ask me anything about your studies!</p>
+                    </div>
+                    
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message ai-message">
+                                <div class="message-avatar">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="message-content">
+                                    <p>Hello! I'm your AI tutor. I'm here to help you learn and understand any topic. What would you like to explore today?</p>
+                                    <span class="message-time">Just now</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input-container">
+                            <div class="chat-input-wrapper">
+                                <input type="text" id="chat-input" placeholder="Ask me anything..." autocomplete="off">
+                                <button id="send-btn" class="send-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            <div class="quick-actions">
+                                <button class="quick-btn" data-message="Explain photosynthesis">
+                                    <i class="fas fa-leaf"></i> Photosynthesis
+                                </button>
+                                <button class="quick-btn" data-message="Help me with calculus">
+                                    <i class="fas fa-square-root-alt"></i> Calculus
+                                </button>
+                                <button class="quick-btn" data-message="Explain machine learning">
+                                    <i class="fas fa-brain"></i> Machine Learning
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documents Tab -->
+                <div class="tab-content" id="documents-tab">
+                    <div class="documents-header">
+                        <h2><i class="fas fa-file-alt"></i> Document Analysis</h2>
+                        <p>Upload documents for AI-powered clustering and analysis</p>
+                    </div>
+                    
+                    <div class="document-input">
+                        <h3>Enter Text for Analysis</h3>
+                        <textarea id="document-text" placeholder="Paste your document text here for analysis..." rows="6"></textarea>
+                        <button id="analyze-btn" class="btn primary">
+                            <i class="fas fa-search"></i>
+                            Analyze Documents
+                        </button>
+                    </div>
+
+                    <div class="analysis-results" id="analysis-results" style="display: none;">
+                        <h3>Analysis Results</h3>
+                        <div class="results-grid" id="results-grid">
+                            <!-- Results will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Tab -->
+                <div class="tab-content" id="history-tab">
+                    <div class="history-header">
+                        <h2><i class="fas fa-history"></i> Chat History</h2>
+                        <p>Review your previous learning sessions</p>
+                    </div>
+                    
+                    <div class="history-list" id="history-list">
+                        <!-- History items will be populated here -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="auth-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <!-- Login Form -->
+            <div class="auth-form" id="login-form">
+                <h2>Welcome Back</h2>
+                <p>Sign in to continue your learning journey</p>
+                
+                <form id="login-form-element">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn primary full-width">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+                </form>
+                
+                <p class="auth-switch">
+                    Don't have an account? 
+                    <a href="#" id="show-register">Sign up</a>
+                </p>
+            </div>
+            
+            <!-- Register Form -->
+            <div class="auth-form" id="register-form" style="display: none;">
+                <h2>Create Account</h2>
+                <p>Join ClassForge and start learning with AI</p>
+                
+                <form id="register-form-element">
+                    <div class="form-group">
+                        <label for="register-username">Username</label>
+                        <input type="text" id="register-username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn primary full-width">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </button>
+                </form>
+                
+                <p class="auth-switch">
+                    Already have an account? 
+                    <a href="#" id="show-login">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="notification-text">Success!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,54 @@
+# ClassForge Environment Configuration
+# Copy this content to a .env file and fill in your actual values
+
+# Basic Configuration
+SECRET_KEY=your-super-secret-key-change-this-in-production
+JWT_SECRET_KEY=your-jwt-secret-key-change-this-in-production
+FLASK_ENV=development
+
+# Database Configuration
+# For PostgreSQL Cloud Options:
+
+# Option 1: Supabase PostgreSQL (Recommended - Free Tier)
+# Sign up at https://supabase.com
+# DATABASE_URL=postgresql://postgres:[password]@db.[project-ref].supabase.co:5432/postgres
+
+# Option 2: Neon PostgreSQL (Serverless - Free Tier)
+# Sign up at https://neon.tech
+# DATABASE_URL=postgresql://[username]:[password]@ep-[id].us-east-2.aws.neon.tech/neondb
+
+# Option 3: Railway PostgreSQL 
+# Sign up at https://railway.app
+# DATABASE_URL=postgresql://postgres:[password]@containers-us-west-[x].railway.app:5432/railway
+
+# Option 4: Heroku PostgreSQL
+# DATABASE_URL=postgres://[username]:[password]@ec2-[host].compute-1.amazonaws.com:5432/[database]
+
+# Default: SQLite (for local development)
+DATABASE_URL=sqlite:///classforge.db
+
+# OpenAI Configuration (for AI chat features)
+OPENAI_API_KEY=your-openai-api-key-here
+
+# Redis Configuration (optional, for caching)
+REDIS_URL=redis://localhost:6379/0
+
+# Email Configuration (for password reset features)
+MAIL_SERVER=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USE_TLS=true
+MAIL_USERNAME=your-email@gmail.com
+MAIL_PASSWORD=your-app-password
+
+# Security Configuration
+JWT_ACCESS_TOKEN_EXPIRES=24  # hours
+BCRYPT_LOG_ROUNDS=13
+
+# File Upload Configuration
+UPLOAD_FOLDER=uploads
+MAX_CONTENT_LENGTH=16777216  # 16MB in bytes
+
+# Production Settings (set these for deployment)
+# SESSION_COOKIE_SECURE=true
+# SESSION_COOKIE_HTTPONLY=true
+# SESSION_COOKIE_SAMESITE=Lax 
